@@ -104,7 +104,6 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "loadPlayer") {
             let newViewController = segue.destinationViewController as PlayerViewController
-            
             let indexPath = self.collectionView?.indexPathForCell(sender as VideoPhotoCell)
             if let indexValue = indexPath {
                 newViewController.videoID = self.videoIDs[indexValue.row]

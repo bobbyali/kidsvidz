@@ -74,10 +74,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="8qu-qj-lob" secondAttribute="trailing" id="XD4-D5-4sa"/>
-                            <constraint firstItem="6In-nP-9Qp" firstAttribute="top" secondItem="8qu-qj-lob" secondAttribute="bottom" id="cgC-Xx-Jex"/>
-                            <constraint firstItem="8qu-qj-lob" firstAttribute="top" secondItem="OwW-Ht-o2n" secondAttribute="bottom" id="iRE-yd-NN4"/>
-                            <constraint firstItem="8qu-qj-lob" firstAttribute="leading" secondItem="uQb-Nz-KW2" secondAttribute="leadingMargin" id="wJ7-yh-ube"/>
+                            <constraint firstItem="6In-nP-9Qp" firstAttribute="top" secondItem="8qu-qj-lob" secondAttribute="bottom" id="5jr-dm-Kjv"/>
+                            <constraint firstItem="8qu-qj-lob" firstAttribute="top" secondItem="OwW-Ht-o2n" secondAttribute="bottom" id="BPF-jX-25k"/>
+                            <constraint firstItem="8qu-qj-lob" firstAttribute="leading" secondItem="uQb-Nz-KW2" secondAttribute="leadingMargin" id="d3G-OL-nDY"/>
+                            <constraint firstItem="8qu-qj-lob" firstAttribute="trailing" secondItem="uQb-Nz-KW2" secondAttribute="trailingMargin" id="diB-C2-V4h"/>
                         </constraints>
                     </view>
                     <connections>
