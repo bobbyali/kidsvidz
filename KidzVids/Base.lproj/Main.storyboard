@@ -1,25 +1,110 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ufu-6w-6MX">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="ufC-wZ-h7g">
+        <!--Grid View Controller-->
+        <scene sceneID="dDF-Bv-QWh">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                <collectionViewController id="dqL-Nz-7jE" customClass="GridViewController" customModule="KidzVids" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="jzD-Tl-FAc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M0T-2D-fSA">
+                            <size key="itemSize" width="169" height="140"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="videoCell" id="Uu9-S4-kAY" customClass="VideoPhotoCell" customModule="KidzVids" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="169" height="140"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6U-vJ-CB0">
+                                            <rect key="frame" x="0.0" y="0.0" width="169" height="140"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="i6U-vJ-CB0" secondAttribute="bottom" id="LIt-Gv-tgo"/>
+                                    <constraint firstItem="i6U-vJ-CB0" firstAttribute="leading" secondItem="Uu9-S4-kAY" secondAttribute="leadingMargin" id="Vy9-ed-6zP"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="i6U-vJ-CB0" secondAttribute="trailing" id="Y6a-PT-NSu"/>
+                                    <constraint firstItem="i6U-vJ-CB0" firstAttribute="top" secondItem="Uu9-S4-kAY" secondAttribute="topMargin" id="qvS-eN-kaj"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="videoPhotoCell" destination="i6U-vJ-CB0" id="IsT-Cx-0NF"/>
+                                    <segue destination="3EU-Jo-9tC" kind="show" identifier="loadPlayer" id="u8Q-Ta-1T6"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="dqL-Nz-7jE" id="01L-xU-Yw2"/>
+                            <outlet property="delegate" destination="dqL-Nz-7jE" id="tmE-DE-aSP"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="Ht1-cK-bHW"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZPp-vl-oQO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1283" y="363"/>
+        </scene>
+        <!--Player View Controller-->
+        <scene sceneID="wzr-Yw-yer">
+            <objects>
+                <viewController id="3EU-Jo-9tC" customClass="PlayerViewController" customModule="KidzVids" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OwW-Ht-o2n"/>
+                        <viewControllerLayoutGuide type="bottom" id="6In-nP-9Qp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uQb-Nz-KW2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qu-qj-lob" customClass="YouTubePlayerView" customModule="YouTubePlayer">
+                                <rect key="frame" x="16" y="20" width="568" height="580"/>
+                                <color key="backgroundColor" red="1" green="0.43238446497678018" blue="0.31055726074412304" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="8qu-qj-lob" secondAttribute="trailing" id="XD4-D5-4sa"/>
+                            <constraint firstItem="6In-nP-9Qp" firstAttribute="top" secondItem="8qu-qj-lob" secondAttribute="bottom" id="cgC-Xx-Jex"/>
+                            <constraint firstItem="8qu-qj-lob" firstAttribute="top" secondItem="OwW-Ht-o2n" secondAttribute="bottom" id="iRE-yd-NN4"/>
+                            <constraint firstItem="8qu-qj-lob" firstAttribute="leading" secondItem="uQb-Nz-KW2" secondAttribute="leadingMargin" id="wJ7-yh-ube"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="videoPlayer" destination="8qu-qj-lob" id="EA4-1l-EKk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y29-eA-8rC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2061" y="363"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="MYM-A4-XA5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ufu-6w-6MX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eJl-0g-FHB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dqL-Nz-7jE" kind="relationship" relationship="rootViewController" id="Tmm-Or-Msw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yhl-YJ-q2g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="471" y="363"/>
         </scene>
     </scenes>
 </document>
