@@ -12,7 +12,9 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     private let reuseIdentifier = "videoCell"
     
-    let youtubePlaylistURL:String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=PL35F93FA3C740F3BB&key=AIzaSyDG2hPqOEDnKeaBW365MCc9KFZVHB8LUYs"
+    //let youtubePlaylistURL:String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=PL35F93FA3C740F3BB&key=AIzaSyDG2hPqOEDnKeaBW365MCc9KFZVHB8LUYs"
+    
+    let youtubePlaylistURL:String = "https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=PL35F93FA3C740F3BB&key=AIzaSyDG2hPqOEDnKeaBW365MCc9KFZVHB8LUYs"
     
     var videoIDs = [String]()
     
@@ -22,6 +24,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
         queryYoutube(youtubePlaylistURL)
+        //self.collectionView?.reloadData()
         
     }
     
@@ -72,35 +75,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     
-    
-    //MARK: Utility methods
-    func queryYoutube(searchString:String) {
-        let manager = AFHTTPRequestOperationManager()
-        manager.GET( searchString ,
-            parameters: nil,
-            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                //println("Response: " + responseObject.description)
-                
-                if let dataArray = responseObject["items"] as? [AnyObject] {
-                    for dataObject in dataArray {
-                        if let imageURLString = dataObject.valueForKeyPath("contentDetails.videoId") as? String {
-                            self.videoIDs.append(imageURLString)
-                        }
-                    }
-                }
-                
-                self.collectionView?.reloadData()
-                
-                
-            },
-            failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
-                println("Error: " + error.localizedDescription)
-        })
-        
-    }
-    
-    
-    
+    // MARK: Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "loadPlayer") {
             let newViewController = segue.destinationViewController as PlayerViewController
@@ -111,4 +86,41 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
     
+    
+    //MARK: Utility methods
+    func queryYoutube(searchString:String) {
+        let manager = AFHTTPRequestOperationManager()
+        manager.GET( searchString ,
+            parameters: nil,
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+                
+                self.getVideoIDs(responseObject)
+                self.collectionView?.reloadData()
+                
+            },
+            failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
+                println("Error: " + error.localizedDescription)
+        })
+        
+    }
+    
+    // recursively fetch all available videoIDs from playlist by navigating nextPageTokens
+    func getVideoIDs(responseObject: AnyObject) {
+        println("Response: " + responseObject.description)
+        
+        if let dataArray = responseObject["items"] as? [AnyObject] {
+            for dataObject in dataArray {
+                if let imageURLString = dataObject.valueForKeyPath("contentDetails.videoId") as? String {
+                    self.videoIDs.append(imageURLString)
+                }
+            }
+        }
+        
+        if let nextToken = responseObject["nextPageToken"] as? String {
+            println(nextToken)
+            var newSearchString = youtubePlaylistURL + "&pageToken=" + nextToken
+            queryYoutube(newSearchString)
+        }
+        
+    }
 }
