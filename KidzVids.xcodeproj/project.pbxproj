@@ -34,6 +34,10 @@
 		C59BF2051AB86F0C00E45975 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59BF2041AB86F0C00E45975 /* PlayerViewController.swift */; };
 		C59BF20E1AB871EF00E45975 /* YouTubePlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C59BF20B1AB8718400E45975 /* YouTubePlayer.framework */; };
 		C59BF20F1AB871EF00E45975 /* YouTubePlayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C59BF20B1AB8718400E45975 /* YouTubePlayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C5ED65CF1AB9D53F0078EF67 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED65CD1AB9D53F0078EF67 /* SettingsViewController.swift */; };
+		C5ED65D01AB9D53F0078EF67 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5ED65CE1AB9D53F0078EF67 /* SettingsViewController.xib */; };
+		C5ED65D21AB9F0CB0078EF67 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED65D11AB9F0CB0078EF67 /* Playlist.swift */; };
+		C5ED65D41AB9FA290078EF67 /* PlaylistCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED65D31AB9FA290078EF67 /* PlaylistCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +137,10 @@
 		C59BF1F81AB86E3100E45975 /* YouTubePlayer.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; name = YouTubePlayer.xcworkspace; path = "../Libraries/Swift-YouTube-Player-master/YouTubePlayer.xcworkspace"; sourceTree = "<group>"; };
 		C59BF2041AB86F0C00E45975 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		C59BF2061AB8718400E45975 /* YouTubePlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = YouTubePlayer.xcodeproj; path = Libs/YouTubePlayer/YouTubePlayer.xcodeproj; sourceTree = "<group>"; };
+		C5ED65CD1AB9D53F0078EF67 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C5ED65CE1AB9D53F0078EF67 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		C5ED65D11AB9F0CB0078EF67 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		C5ED65D31AB9FA290078EF67 /* PlaylistCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCollection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +193,10 @@
 				C59BF1F41AB86AA900E45975 /* VideoPhotoCell.swift */,
 				C59BF2041AB86F0C00E45975 /* PlayerViewController.swift */,
 				C59BF1821AB8464B00E45975 /* GridViewController.swift */,
+				C5ED65D11AB9F0CB0078EF67 /* Playlist.swift */,
+				C5ED65D31AB9FA290078EF67 /* PlaylistCollection.swift */,
+				C5ED65CD1AB9D53F0078EF67 /* SettingsViewController.swift */,
+				C5ED65CE1AB9D53F0078EF67 /* SettingsViewController.xib */,
 				C59BF15F1AB83EE400E45975 /* Images.xcassets */,
 				C59BF1611AB83EE400E45975 /* LaunchScreen.xib */,
 				C59BF1561AB83EE400E45975 /* Supporting Files */,
@@ -377,6 +389,7 @@
 				C59BF15E1AB83EE400E45975 /* Main.storyboard in Resources */,
 				C59BF1631AB83EE400E45975 /* LaunchScreen.xib in Resources */,
 				C59BF1601AB83EE400E45975 /* Images.xcassets in Resources */,
+				C5ED65D01AB9D53F0078EF67 /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,10 +416,13 @@
 				C59BF1D21AB84D2500E45975 /* AFHTTPRequestOperationManager.m in Sources */,
 				C59BF1D61AB84D2500E45975 /* AFURLConnectionOperation.m in Sources */,
 				C59BF2051AB86F0C00E45975 /* PlayerViewController.swift in Sources */,
+				C5ED65D41AB9FA290078EF67 /* PlaylistCollection.swift in Sources */,
 				C59BF1F01AB84D3500E45975 /* UIImageView+AFNetworking.m in Sources */,
+				C5ED65D21AB9F0CB0078EF67 /* Playlist.swift in Sources */,
 				C59BF1D11AB84D2500E45975 /* AFHTTPRequestOperation.m in Sources */,
 				C59BF1ED1AB84D3500E45975 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				C59BF1591AB83EE400E45975 /* AppDelegate.swift in Sources */,
+				C5ED65CF1AB9D53F0078EF67 /* SettingsViewController.swift in Sources */,
 				C59BF1D71AB84D2500E45975 /* AFURLRequestSerialization.m in Sources */,
 				C59BF1D31AB84D2500E45975 /* AFHTTPSessionManager.m in Sources */,
 				C59BF1D41AB84D2500E45975 /* AFNetworkReachabilityManager.m in Sources */,
@@ -626,6 +642,7 @@
 				C59BF1741AB83EE400E45975 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C59BF1751AB83EE400E45975 /* Build configuration list for PBXNativeTarget "KidzVidsTests" */ = {
 			isa = XCConfigurationList;
@@ -634,6 +651,7 @@
 				C59BF1771AB83EE400E45975 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

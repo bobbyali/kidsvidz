@@ -12,6 +12,8 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="jzD-Tl-FAc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M0T-2D-fSA">
                             <size key="itemSize" width="169" height="140"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -28,10 +30,12 @@
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6U-vJ-CB0">
                                             <rect key="frame" x="0.0" y="0.0" width="169" height="140"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottomMargin" secondItem="i6U-vJ-CB0" secondAttribute="bottom" id="LIt-Gv-tgo"/>
                                     <constraint firstItem="i6U-vJ-CB0" firstAttribute="leading" secondItem="Uu9-S4-kAY" secondAttribute="leadingMargin" id="Vy9-ed-6zP"/>
@@ -47,11 +51,17 @@
                         <connections>
                             <outlet property="dataSource" destination="dqL-Nz-7jE" id="01L-xU-Yw2"/>
                             <outlet property="delegate" destination="dqL-Nz-7jE" id="tmE-DE-aSP"/>
+                            <outletCollection property="gestureRecognizers" destination="lNA-1e-kFB" appends="YES" id="qeJ-N3-eOg"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Ht1-cK-bHW"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPp-vl-oQO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="3.0000000000000013" id="lNA-1e-kFB">
+                    <connections>
+                        <action selector="longTouch:" destination="dqL-Nz-7jE" id="0Tt-aY-mfN"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1283" y="363"/>
         </scene>

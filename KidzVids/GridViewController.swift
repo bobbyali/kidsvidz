@@ -8,24 +8,36 @@
 
 import UIKit
 
+let mySpecialNotificationKey = "com.azukiapps.fetchedVideoIDs"
+
 class GridViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private let reuseIdentifier = "videoCell"
-    
-    //let youtubePlaylistURL:String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=PL35F93FA3C740F3BB&key=AIzaSyDG2hPqOEDnKeaBW365MCc9KFZVHB8LUYs"
-    
-    let youtubePlaylistURL:String = "https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=PL35F93FA3C740F3BB&key=AIzaSyDG2hPqOEDnKeaBW365MCc9KFZVHB8LUYs"
-    
-    var videoIDs = [String]()
+        
+    var playlists: PlaylistCollection?
+    var playlistIndex: Int = 0
     
     
     
     // SETUP
     override func viewDidLoad() {
         super.viewDidLoad()
-        queryYoutube(youtubePlaylistURL)
-        //self.collectionView?.reloadData()
         
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "fetchedVideoIDs:",
+            name: mySpecialNotificationKey,
+            object: nil)
+        
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        self.playlists = PlaylistCollection()
+        var numVideos = getPlaylist().videoIDs.count
+        println("Number of videos: " + String(numVideos))
+        
+        self.collectionView?.reloadData()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,6 +46,23 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
 
     
+    override func viewWillAppear(animated: Bool) {
+        self.collectionView?.reloadData()
+    }
+    
+    func getPlaylist() -> Playlist {
+        return self.playlists!.list[playlistIndex]
+    }
+    
+
+    
+    func fetchedVideoIDs(notification: NSNotification) {
+        println("notification received")
+        if notification.name == mySpecialNotificationKey {
+            self.collectionView?.reloadData()
+            println("target notification received")
+        }
+    }
     
     
     // MARK: Collection view
@@ -43,14 +72,15 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        println(String(self.videoIDs.count))
-        return self.videoIDs.count
+        var numResults = getPlaylist().videoIDs.count
+        println(String(numResults))
+        return numResults
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as VideoPhotoCell
-        let videoPhotoURL = "http://img.youtube.com/vi/" + videoIDs[indexPath.row] + "/2.jpg"
-        cell.backgroundColor = UIColor.whiteColor()
+        let videoPhotoURL = "http://img.youtube.com/vi/" + getPlaylist().videoIDs[indexPath.row] + "/0.jpg"
+        cell.backgroundColor = UIColor.blackColor()
         cell.videoPhotoCell.setImageWithURL(NSURL(string: videoPhotoURL ))
         return cell
     }
@@ -81,46 +111,25 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
             let newViewController = segue.destinationViewController as PlayerViewController
             let indexPath = self.collectionView?.indexPathForCell(sender as VideoPhotoCell)
             if let indexValue = indexPath {
-                newViewController.videoID = self.videoIDs[indexValue.row]
+                newViewController.videoID = getPlaylist().videoIDs[indexValue.row]
             }
         }
     }
     
     
-    //MARK: Utility methods
-    func queryYoutube(searchString:String) {
-        let manager = AFHTTPRequestOperationManager()
-        manager.GET( searchString ,
-            parameters: nil,
-            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                
-                self.getVideoIDs(responseObject)
-                self.collectionView?.reloadData()
-                
-            },
-            failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
-                println("Error: " + error.localizedDescription)
-        })
-        
+
+    
+    // MARK: Gestures
+    @IBAction func longTouch(sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Ended {
+            println("Long press detected")
+            let vc = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
+            vc.playlists = playlists
+            vc.playlistIndex = playlistIndex
+            navigationController?.pushViewController(vc, animated: true)
+            //self.collectionView?.reloadData()
+        }
     }
     
-    // recursively fetch all available videoIDs from playlist by navigating nextPageTokens
-    func getVideoIDs(responseObject: AnyObject) {
-        println("Response: " + responseObject.description)
-        
-        if let dataArray = responseObject["items"] as? [AnyObject] {
-            for dataObject in dataArray {
-                if let imageURLString = dataObject.valueForKeyPath("contentDetails.videoId") as? String {
-                    self.videoIDs.append(imageURLString)
-                }
-            }
-        }
-        
-        if let nextToken = responseObject["nextPageToken"] as? String {
-            println(nextToken)
-            var newSearchString = youtubePlaylistURL + "&pageToken=" + nextToken
-            queryYoutube(newSearchString)
-        }
-        
-    }
+    
 }

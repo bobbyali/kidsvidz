@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController" customModule="KidzVids" customModuleProvider="target">
+            <connections>
+                <outlet property="newPlaylistID" destination="4io-Pq-7wG" id="dvC-nS-9m5"/>
+                <outlet property="newPlaylistTitle" destination="N9I-xe-S0B" id="EDD-gu-X4T"/>
+                <outlet property="playlistSelector" destination="OUd-Mv-vbG" id="qNw-iB-AaM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select an existing playlist:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umJ-Vr-qmF">
+                    <rect key="frame" x="30" y="58" width="285" height="33"/>
+                    <fontDescription key="fontDescription" name="Avenir-BookOblique" family="Avenir" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiB-9M-BN5">
+                    <rect key="frame" x="68" y="443" width="419" height="130"/>
+                    <string key="text">Playlist IDs can be found from the URL (web address) of a YouTube playlist. Look at the top of your browser, at the code that looks like this - https://www.youtube.com/playlist?list=PL35F93FA3C740F3BB - and take the bit after "list=". (Or you can paste the whole URL in, and we'll figure it out for you!)</string>
+                    <fontDescription key="fontDescription" name="Avenir-BookOblique" family="Avenir" pointSize="11"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6S-7T-J5Y">
+                    <rect key="frame" x="446" y="8" width="146" height="67"/>
+                    <fontDescription key="fontDescription" name="Avenir-BookOblique" family="Avenir" pointSize="37"/>
+                    <color key="textColor" red="0.77440419819999995" green="0.69645948629999999" blue="0.2459083309" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of new Playlist" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N9I-xe-S0B">
+                    <rect key="frame" x="78" y="325" width="409" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PL35F93FA3C740F3BB" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4io-Pq-7wG">
+                    <rect key="frame" x="78" y="363" width="409" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H49-cy-i4I">
+                    <rect key="frame" x="361" y="401" width="131" height="45"/>
+                    <fontDescription key="fontDescription" name="Avenir-BookOblique" family="Avenir" pointSize="20"/>
+                    <state key="normal" title="Save Playlist">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="saveNewPlaylist:" destination="-1" eventType="touchUpInside" id="r1s-nh-ukH"/>
+                    </connections>
+                </button>
+                <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OUd-Mv-vbG">
+                    <rect key="frame" x="68" y="99" width="443" height="162"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </pickerView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Add a new playlist:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hX9-ff-fDH">
+                    <rect key="frame" x="30" y="283" width="285" height="33"/>
+                    <fontDescription key="fontDescription" name="Avenir-BookOblique" family="Avenir" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="OUd-Mv-vbG" secondAttribute="trailing" constant="20" id="1kd-Rv-0YK"/>
+                <constraint firstAttribute="trailing" secondItem="J6S-7T-J5Y" secondAttribute="trailing" constant="20" id="2Fd-LL-AJc"/>
+                <constraint firstItem="N9I-xe-S0B" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="3si-3f-Zvb"/>
+                <constraint firstItem="umJ-Vr-qmF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="C9u-bj-xe6"/>
+                <constraint firstItem="QiB-9M-BN5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="GPi-2d-7Pd"/>
+                <constraint firstItem="hX9-ff-fDH" firstAttribute="top" secondItem="OUd-Mv-vbG" secondAttribute="bottom" constant="20" id="GiV-XY-eib"/>
+                <constraint firstAttribute="trailing" secondItem="hX9-ff-fDH" secondAttribute="trailing" constant="20" id="O3d-bk-3sq"/>
+                <constraint firstItem="QiB-9M-BN5" firstAttribute="top" secondItem="4io-Pq-7wG" secondAttribute="bottom" constant="50" id="Ol3-ay-Rhk"/>
+                <constraint firstItem="4io-Pq-7wG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="TvV-Pz-l9M"/>
+                <constraint firstAttribute="trailing" secondItem="H49-cy-i4I" secondAttribute="trailing" constant="20" id="XW4-ry-TJq"/>
+                <constraint firstAttribute="trailing" secondItem="umJ-Vr-qmF" secondAttribute="trailing" constant="20" id="ZXL-93-gUB"/>
+                <constraint firstItem="H49-cy-i4I" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="cAv-UL-uIj"/>
+                <constraint firstAttribute="trailing" secondItem="4io-Pq-7wG" secondAttribute="trailing" constant="20" id="e2c-UV-G8M"/>
+                <constraint firstAttribute="trailing" secondItem="QiB-9M-BN5" secondAttribute="trailing" constant="20" id="hSa-3I-Teu"/>
+                <constraint firstItem="J6S-7T-J5Y" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="iXI-6E-22Z"/>
+                <constraint firstItem="OUd-Mv-vbG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="ilZ-cC-j58"/>
+                <constraint firstItem="OUd-Mv-vbG" firstAttribute="top" secondItem="umJ-Vr-qmF" secondAttribute="bottom" constant="20" id="lZe-xI-ZbI"/>
+                <constraint firstItem="N9I-xe-S0B" firstAttribute="top" secondItem="hX9-ff-fDH" secondAttribute="bottom" constant="10" id="lqa-FB-YL5"/>
+                <constraint firstItem="umJ-Vr-qmF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="n8e-af-RPJ"/>
+                <constraint firstItem="hX9-ff-fDH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="trZ-nK-Z9R"/>
+                <constraint firstAttribute="trailing" secondItem="N9I-xe-S0B" secondAttribute="trailing" constant="20" id="ubv-ey-Oez"/>
+                <constraint firstItem="4io-Pq-7wG" firstAttribute="top" secondItem="N9I-xe-S0B" secondAttribute="bottom" constant="10" id="wMy-6p-gSk"/>
+                <constraint firstItem="H49-cy-i4I" firstAttribute="top" secondItem="4io-Pq-7wG" secondAttribute="bottom" constant="10" id="ywJ-gh-QZw"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
