@@ -8,6 +8,9 @@
 
 import UIKit
 
+// this class describes an individual playlist of youtube videos. 
+// it initialises by fetching all videoIDs for a given playlistID value.
+
 // omit inheriting NSCoding interface for now
 class Playlist {
     
@@ -65,7 +68,6 @@ class Playlist {
         }
         
         if let nextToken = responseObject["nextPageToken"] as? String {
-            println(nextToken)
             var newSearchString = self.searchString + "&pageToken=" + nextToken
             queryYoutube(newSearchString)
         }

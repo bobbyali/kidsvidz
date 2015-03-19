@@ -17,26 +17,26 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     var playlists: PlaylistCollection?
     var playlistIndex: Int = 0
     
-    
-    
     // SETUP
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set up notifications for when YouTube videos finish fetching in background
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: "fetchedVideoIDs:",
             name: mySpecialNotificationKey,
             object: nil)
         
-        
         navigationController?.setNavigationBarHidden(true, animated: false)
+    
+        // set up notice on how to access settings menu
+        var alert = UIAlertController(title: "Info", message: "To change playlist, tap and hold until screen goes white.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
         
+        // start fetching playlists
         self.playlists = PlaylistCollection()
-        var numVideos = getPlaylist().videoIDs.count
-        println("Number of videos: " + String(numVideos))
-        
-        self.collectionView?.reloadData()
 
     }
     
@@ -47,20 +47,25 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     
     override func viewWillAppear(animated: Bool) {
+        // refresh view with latest videos after returning from settings view controller
         self.collectionView?.reloadData()
+        if let collectionView = self.collectionView {
+            collectionView.backgroundColor = UIColor.blackColor()
+        }
     }
     
+    // MARK: Helper functions
+    
+    // retrieve the current Playlist object
     func getPlaylist() -> Playlist {
         return self.playlists!.list[playlistIndex]
     }
     
 
-    
+    // receive and act on notifications that background video fetch has finished
     func fetchedVideoIDs(notification: NSNotification) {
-        println("notification received")
         if notification.name == mySpecialNotificationKey {
             self.collectionView?.reloadData()
-            println("target notification received")
         }
     }
     
@@ -72,9 +77,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var numResults = getPlaylist().videoIDs.count
-        println(String(numResults))
-        return numResults
+        return getPlaylist().videoIDs.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -117,17 +120,25 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     
-
-    
     // MARK: Gestures
+    
+    // a long tap is used to open the settings view controller
     @IBAction func longTouch(sender: UILongPressGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.Ended {
-            println("Long press detected")
+            
             let vc = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
             vc.playlists = playlists
             vc.playlistIndex = playlistIndex
             navigationController?.pushViewController(vc, animated: true)
-            //self.collectionView?.reloadData()
+            
+        } else if sender.state == UIGestureRecognizerState.Began {
+            
+            // give a visual clue that press has been long enough to activate settings view controller
+            UIView.animateWithDuration(2.0, animations: {
+                if let collectionView = self.collectionView {
+                    collectionView.backgroundColor = UIColor.whiteColor()
+                }
+            })
         }
     }
     

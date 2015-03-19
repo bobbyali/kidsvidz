@@ -23,8 +23,10 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
         // Do any additional setup after loading the view.
         navigationController?.setNavigationBarHidden(false, animated: false)
         
+        // set up the playlist selector picker
         playlistSelector.dataSource = self
         playlistSelector.delegate = self
+        playlistSelector.selectRow(playlistIndex!, inComponent: 0, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,9 +39,7 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
             navigationController.setNavigationBarHidden(true, animated: false)
             let parentVC = navigationController.viewControllers[0] as GridViewController
             parentVC.playlistIndex = self.playlistIndex!
-            println("Passing over playlist index" + String(self.playlistIndex!))
         }
-        println("About to quit the settings view")
     }
     
 

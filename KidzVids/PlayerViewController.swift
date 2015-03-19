@@ -33,7 +33,7 @@ class PlayerViewController: UIViewController, YouTubePlayerDelegate {
     
     
     // MARK: YouTubePlayerDelegate
-    // These are all required. See https://github.com/gilesvangruisen/Swift-YouTube-Player/
+    // These are all required for the interface. See https://github.com/gilesvangruisen/Swift-YouTube-Player/
     func playerReady(videoPlayer: YouTubePlayerView) {
         videoPlayer.play()
     }
