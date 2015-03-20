@@ -24,12 +24,14 @@ class PlayerViewController: UIViewController, YouTubePlayerDelegate {
         if let videoID = self.videoID {
             videoPlayer.loadVideoID(videoID)
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     
     // MARK: YouTubePlayerDelegate
@@ -41,10 +43,8 @@ class PlayerViewController: UIViewController, YouTubePlayerDelegate {
     func playerStateChanged(videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState) {
         if videoPlayer.playerState == YouTubePlayerState.Ended || videoPlayer.playerState == YouTubePlayerState.Paused {
             if let nav = self.navigationController {
-                println("popping")
+                self.videoPlayer.closePlayer()
                 nav.popViewControllerAnimated(true)
-            } else {
-                println("not popping")
             }
         }
     }
