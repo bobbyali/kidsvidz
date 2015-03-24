@@ -192,7 +192,7 @@ public class YouTubePlayerView: UIView, UIWebViewDelegate {
 
         // Get HTML from player file in bundle
         let rawHTMLString = htmlStringWithFilePath(playerHTMLPath())!
-
+        
         // Get JSON serialized parameters string
         let jsonParameters = serializedJSON(parameters)!
 

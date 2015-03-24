@@ -28,8 +28,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="169" height="140"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6U-vJ-CB0">
-                                            <rect key="frame" x="0.0" y="0.0" width="169" height="140"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i6U-vJ-CB0">
+                                            <rect key="frame" x="8" y="8" width="153" height="124"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
                                     </subviews>
@@ -52,14 +52,22 @@
                             <outlet property="dataSource" destination="dqL-Nz-7jE" id="01L-xU-Yw2"/>
                             <outlet property="delegate" destination="dqL-Nz-7jE" id="tmE-DE-aSP"/>
                             <outletCollection property="gestureRecognizers" destination="lNA-1e-kFB" appends="YES" id="qeJ-N3-eOg"/>
+                            <outletCollection property="gestureRecognizers" destination="ucy-4i-gKz" appends="YES" id="Gm4-lD-AKp"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Ht1-cK-bHW"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPp-vl-oQO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="3.0000000000000013" id="lNA-1e-kFB">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ucy-4i-gKz" userLabel="showResponseLongGesture">
                     <connections>
-                        <action selector="longTouch:" destination="dqL-Nz-7jE" id="0Tt-aY-mfN"/>
+                        <action selector="showLongTouchResponse:" destination="dqL-Nz-7jE" id="YKV-qr-cL7"/>
+                        <outlet property="delegate" destination="dqL-Nz-7jE" id="jx6-xK-kiJ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="3.0000000000000013" id="lNA-1e-kFB" userLabel="activateSettingsMenuLongTouch">
+                    <connections>
+                        <action selector="loadSettingsMenu:" destination="dqL-Nz-7jE" id="Zh4-D2-BLR"/>
+                        <outlet property="delegate" destination="dqL-Nz-7jE" id="Epr-sT-Elb"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>

@@ -41,9 +41,9 @@ class PlayerViewController: UIViewController, YouTubePlayerDelegate {
     }
     
     func playerStateChanged(videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState) {
-        if videoPlayer.playerState == YouTubePlayerState.Ended || videoPlayer.playerState == YouTubePlayerState.Paused {
+        if playerState == YouTubePlayerState.Ended || playerState == YouTubePlayerState.Paused {
             if let nav = self.navigationController {
-                self.videoPlayer.closePlayer()
+                videoPlayer.closePlayer()
                 nav.popViewControllerAnimated(true)
             }
         }

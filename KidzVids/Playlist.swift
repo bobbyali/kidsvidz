@@ -45,13 +45,15 @@ class Playlist {
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
                 
                 self.getVideoIDs(responseObject)
+                NSNotificationCenter.defaultCenter().postNotificationName(mySpecialNotificationKey, object: nil)
                 
             },
             failure: { (operation: AFHTTPRequestOperation!,error: NSError!) in
                 println("Error: " + error.localizedDescription)
+                
+                // need to do a new notification for failure
         })
         
-        NSNotificationCenter.defaultCenter().postNotificationName(mySpecialNotificationKey, object: nil)
         
     }
     

@@ -10,12 +10,15 @@ import UIKit
 
 let mySpecialNotificationKey = "com.azukiapps.fetchedVideoIDs"
 
-class GridViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class GridViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     private let reuseIdentifier = "videoCell"
         
     var playlists: PlaylistCollection?
     var playlistIndex: Int = 0
+    let longTouchIndicatorBar = UIView(frame: CGRect(x: 20, y: 0, width: 0, height: 20))
+    var screenSize: CGRect = UIScreen.mainScreen().bounds
+    var infoLabel: UILabel = UILabel()
     
     // SETUP
     override func viewDidLoad() {
@@ -28,15 +31,23 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
             name: mySpecialNotificationKey,
             object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "orientationChanged:",
+            name: UIDeviceOrientationDidChangeNotification,
+            object: nil)
+        
+        
         navigationController?.setNavigationBarHidden(true, animated: false)
-    
-        // set up notice on how to access settings menu
-        var alert = UIAlertController(title: "Info", message: "To change playlist, tap and hold until screen goes white.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
         
         // start fetching playlists
         self.playlists = PlaylistCollection()
+        
+        infoLabel = UILabel(frame: CGRect(x: 20, y: 10, width: screenSize.width-40, height: 20))
+        infoLabel.text = "Tap and hold for settings"
+        infoLabel.textColor = UIColor.whiteColor()
+        infoLabel.textAlignment = NSTextAlignment.Center
+        collectionView?.addSubview(infoLabel)
 
     }
     
@@ -46,13 +57,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
 
     
-    override func viewWillAppear(animated: Bool) {
-        // refresh view with latest videos after returning from settings view controller
-        self.collectionView?.reloadData()
-        if let collectionView = self.collectionView {
-            collectionView.backgroundColor = UIColor.blackColor()
-        }
-    }
+
     
     // MARK: Helper functions
     
@@ -67,6 +72,11 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         if notification.name == mySpecialNotificationKey {
             self.collectionView?.reloadData()
         }
+    }
+    
+    func orientationChanged(notification: NSNotification) {
+        println("notified of rotation!")
+        refreshViewController()
     }
     
     
@@ -96,8 +106,20 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         layout collectionViewLayout: UICollectionViewLayout!,
         sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
             
-            return CGSize(width: 130, height: 100)
+            let screenWidth = screenSize.width
+            
+            let isLandscape = UIApplication.sharedApplication().statusBarOrientation.isLandscape
+            
+            if isLandscape {
+                let iconWidth = (screenWidth/2) - 50
+                return CGSize(width: iconWidth, height: iconWidth * 0.77)
+            } else {
+                let iconWidth = screenWidth - 50
+                return CGSize(width: iconWidth, height: iconWidth * 0.77)
+            }
+            
     }
+    
     
     private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
     
@@ -105,6 +127,33 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         layout collectionViewLayout: UICollectionViewLayout!,
         insetForSectionAtIndex section: Int) -> UIEdgeInsets {
             return sectionInsets
+    }
+    
+    
+    // MARK: Screen updates
+    
+    /*override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        refreshViewController()
+    }*/
+    
+    override func viewWillAppear(animated: Bool) {
+        // refresh view with latest videos after returning from settings view controller
+        refreshViewController()
+    }
+    
+    
+    func refreshViewController() {
+        self.collectionView?.reloadData()
+        if let collectionView = self.collectionView {
+            collectionView.backgroundColor = UIColor.blackColor()
+        }
+
+        let rotation = UIApplication.sharedApplication().statusBarOrientation.rawValue
+        //self.screenSize = UIScreen.mainScreen().bounds
+        self.screenSize = UIScreen.mainScreen().applicationFrame
+        println("Rotated \(rotation) h: \(screenSize.height) w: \(screenSize.width)")
+        infoLabel.frame.size.width = screenSize.width-40
+
     }
     
     
@@ -122,11 +171,36 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     // MARK: Gestures
     
+    func gestureRecognizer(UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
+            return true
+    }
+    
+    @IBAction func showLongTouchResponse(sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Began {
+            // give a visual clue that long press will do something
+            let touchPosition = sender.locationInView(self.collectionView)
+            longTouchIndicatorBar.frame = CGRect(x: 20, y: Int(touchPosition.y), width: 0, height: 10)
+            
+            longTouchIndicatorBar.backgroundColor = UIColor.redColor()
+            collectionView?.addSubview(longTouchIndicatorBar)
+            UIView.animateWithDuration(2.5, animations: {
+                self.longTouchIndicatorBar.frame.size.width = self.screenSize.width - 40
+            })
+            
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            let touchPosition = sender.locationInView(self.collectionView)
+            longTouchIndicatorBar.frame.size.width = 0
+            longTouchIndicatorBar.removeFromSuperview()
+        }
+    }
+    
     // a long tap is used to open the settings view controller
-    @IBAction func longTouch(sender: UILongPressGestureRecognizer) {
+    @IBAction func loadSettingsMenu(sender: UILongPressGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.Ended {
             
             let vc = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
+            //let vc = PlaylistEditorViewController(nibName: nil, bundle: nil)
             vc.playlists = playlists
             vc.playlistIndex = playlistIndex
             navigationController?.pushViewController(vc, animated: true)
@@ -134,13 +208,10 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         } else if sender.state == UIGestureRecognizerState.Began {
             
             // give a visual clue that press has been long enough to activate settings view controller
-            UIView.animateWithDuration(2.0, animations: {
-                if let collectionView = self.collectionView {
-                    collectionView.backgroundColor = UIColor.whiteColor()
-                }
+            UIView.animateWithDuration(0.2, animations: {
+                self.longTouchIndicatorBar.backgroundColor = UIColor.greenColor()
             })
         }
     }
-    
     
 }
